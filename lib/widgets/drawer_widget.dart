@@ -5,6 +5,7 @@ import 'package:starwars_urbetrack_app/bloc/invaders_bloc/invaders_bloc.dart';
 import 'package:starwars_urbetrack_app/bloc/swtichMode_bloc/switchmode_bloc.dart';
 import 'package:starwars_urbetrack_app/boxes.dart';
 import 'package:starwars_urbetrack_app/models/invader_model.dart';
+import 'package:starwars_urbetrack_app/services/api_services.dart';
 
 class DraweWidget extends StatefulWidget {
   @override
@@ -13,6 +14,7 @@ class DraweWidget extends StatefulWidget {
 
 class _DraweWidgetState extends State<DraweWidget> {
   final storage = Boxes.getInvaders().values;
+  ApiServices apiServices = ApiServices();
 
   SwitchmodeBloc swithBloc;
   InvadersBloc invadersBloc;
@@ -23,6 +25,14 @@ class _DraweWidgetState extends State<DraweWidget> {
     invadersBloc = BlocProvider.of<InvadersBloc>(context);
 
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    if (apiServices.page == 9) {
+      invadersBloc.close();
+    }
+    super.dispose();
   }
 
   @override

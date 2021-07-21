@@ -19,13 +19,13 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    swithBloc = BlocProvider.of<SwitchmodeBloc>(context);
-
+    swithBloc = BlocProvider.of<SwitchmodeBloc>(context, listen: false);
     super.initState();
   }
 
   @override
   void dispose() {
+    swithBloc.close();
     super.dispose();
   }
 
