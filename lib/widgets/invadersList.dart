@@ -36,7 +36,6 @@ class _InvadersListState extends State<InvadersList> {
 
   @override
   void dispose() {
-    //invadersbloc.close(); //Cerra cuando termines la carga
     super.dispose();
   }
 
@@ -44,7 +43,7 @@ class _InvadersListState extends State<InvadersList> {
   Widget build(BuildContext context) {
     return BlocBuilder<InvadersBloc, InvadersState>(
       builder: (BuildContext context, state) {
-        // print("state: $state");
+        // print("loading: ${state.invader}");
 
         if (state is LoadingInvaders) {
           return Center(
@@ -150,6 +149,12 @@ class _InvadersListState extends State<InvadersList> {
                           );
                         },
                       ),
+                      if (state.isLoading)
+                        Center(
+                          child: Container(
+                            child: CircularProgressIndicator(),
+                          ),
+                        ),
                     ],
                   ),
                 ),
@@ -157,7 +162,7 @@ class _InvadersListState extends State<InvadersList> {
             ),
           );
         }
-        // state is InvadersErrorMessage
+        //if state is InvadersErrorMessage
         else {
           return Container(
             child: Center(

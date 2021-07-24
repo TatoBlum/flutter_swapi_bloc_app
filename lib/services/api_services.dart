@@ -20,7 +20,6 @@ class ApiServices {
     page++;
     final queryparams = {'page': page.toString()};
     if (page <= 9) {
-      // print("page: $page");
       var url = Uri.https("swapi.dev", "/api/people/", queryparams);
       final response = await http.get(url);
       final invadersResponse =

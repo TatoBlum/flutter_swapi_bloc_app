@@ -30,17 +30,15 @@ class InvadersBloc extends Bloc<InvadersEvent, InvadersState> {
 
     if (event is FetchMoreInvadersEvent) {
       try {
-        yield LoadingInvaders(invaders: [...state.invaders]);
-
         List<Invader> invaders = await repository.getInvaders();
-        //state.invaders != null??? revisar
         if (invaders != null && state.invaders != null) {
-          yield InvadersLoaded(invaders: [...state.invaders, ...invaders]);
+          yield InvadersLoaded(
+              invaders: [...state.invaders, ...invaders],
+              isLoading: !state.isLoading);
         } else {
           yield InvadersLoaded(invaders: [...state.invaders]);
         }
       } catch (e) {
-        // yield InvadersErrorMessage(error: e.toString());
         yield InvadersErrorMessage(error: state.error);
       }
     }
